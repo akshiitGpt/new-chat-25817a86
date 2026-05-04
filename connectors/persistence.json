@@ -1,0 +1,27 @@
+{
+  "name": "Persistence database",
+  "purpose": "Track deduplication, idempotency, auditability, generated specs, PR metadata, ticket processing states, and run logs.",
+  "auth": "DATABASE_URL",
+  "reads": [
+    "processed Linear ticket IDs",
+    "prior runs",
+    "ticket statuses",
+    "event specs",
+    "PR metadata",
+    "run logs"
+  ],
+  "writes": [
+    "agent_runs",
+    "linear_tickets",
+    "ticket_processing",
+    "event_specs",
+    "github_pull_requests",
+    "run_logs"
+  ],
+  "requirements": [
+    "Enforce unique linear_tickets.linear_ticket_id.",
+    "Use transactions for state transitions after external writes.",
+    "Store only redacted summaries of command output.",
+    "Never persist tokens, private keys, authorization headers, or secret-bearing URLs."
+  ]
+}

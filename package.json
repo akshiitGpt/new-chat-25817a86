@@ -1,0 +1,25 @@
+{
+  "name": "linear-to-mixpanel-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "OpenClaw scheduled automation for Linear-to-Notion-to-GitHub Mixpanel instrumentation workflow.",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "migrate": "node persistence/migrate.js",
+    "once": "OPENCLAW_RUN_ONCE=true node bot.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@notionhq/client": "^2.2.15",
+    "@octokit/rest": "^21.1.1",
+    "cron": "^3.3.1",
+    "dotenv": "^16.4.7",
+    "graphql-request": "^7.1.2",
+    "pg": "^8.13.1"
+  }
+}

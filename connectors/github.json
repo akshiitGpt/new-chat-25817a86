@@ -1,0 +1,26 @@
+{
+  "name": "GitHub",
+  "purpose": "Analyze repositories and open human-reviewed PRs for scoped Mixpanel instrumentation changes.",
+  "auth": "GITHUB_TOKEN or GitHub App credentials",
+  "reads": [
+    "repositories",
+    "branches",
+    "files",
+    "linked PRs and diffs",
+    "tests",
+    "existing analytics code"
+  ],
+  "writes": [
+    "implementation branches",
+    "commits",
+    "pull requests",
+    "PR descriptions"
+  ],
+  "requirements": [
+    "Never merge PRs.",
+    "Respect repository allowlist and allowed file globs.",
+    "Detect existing branches or PRs containing the Linear ticket ID before creating new ones.",
+    "Use configured branch, commit, and PR title templates.",
+    "Keep diffs scoped to event constants/enums, Mixpanel calls, and related tests."
+  ]
+}

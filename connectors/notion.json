@@ -1,0 +1,19 @@
+{
+  "name": "Notion",
+  "purpose": "Create and update RUH AI ticket-grouped Mixpanel event specifications for review.",
+  "auth": "NOTION_TOKEN",
+  "reads": [
+    "existing ticket-specific documentation by Linear ticket ID",
+    "configured parent page or database metadata"
+  ],
+  "writes": [
+    "event spec pages or database records",
+    "PR URL and test summary updates after GitHub PR creation"
+  ],
+  "requirements": [
+    "Use Linear ticket ID as idempotency key.",
+    "Include Linear URL, event specs, typed properties, trigger points, implementation notes, uncertainty notes, and PR links.",
+    "Support database target or parent page target.",
+    "Do not write secrets."
+  ]
+}

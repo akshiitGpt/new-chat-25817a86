@@ -1,0 +1,70 @@
+{
+  "runtime": {
+    "node": ">=22",
+    "timezone": "Asia/Kolkata",
+    "deployment": "docker-compose|start.sh"
+  },
+  "agent": {
+    "name": "Linear-to-Mixpanel Agent",
+    "slug": "linear-to-mixpanel-agent",
+    "description": "Scheduled automation that scans completed Linear tickets, derives Mixpanel event specs, documents them in Notion, implements scoped GitHub instrumentation, and opens PRs for review.",
+    "model": "anthropic:claude-3-5-sonnet-latest",
+    "maxTicketsPerRun": 50,
+    "continueOnTicketError": true
+  },
+  "triggers": {
+    "weeklyCompletedTicketScan": {
+      "type": "schedule",
+      "cron": "0 20 * * 1",
+      "timezone": "Asia/Kolkata",
+      "enabled": true,
+      "handler": "triggers/weekly-completed-ticket-scan.json"
+    }
+  },
+  "linear": {
+    "scopeType": "team",
+    "scopeId": "",
+    "doneStateIds": [],
+    "includeComments": true,
+    "includeAttachments": true,
+    "includeLinks": true,
+    "scanMode": "all_completed_deduped"
+  },
+  "notion": {
+    "workspaceName": "RUH AI",
+    "targetType": "database",
+    "targetId": "",
+    "groupBy": "linear_ticket_id",
+    "documentNoEventNeeded": false
+  },
+  "github": {
+    "authType": "token",
+    "organizations": [],
+    "repositories": [],
+    "defaultBaseBranch": "main",
+    "branchNameTemplate": "openclaw/{linear_ticket_id}-mixpanel-events",
+    "commitMessageTemplate": "Add Mixpanel instrumentation for {linear_ticket_id}",
+    "prTitleTemplate": "Add Mixpanel instrumentation for {linear_ticket_id}",
+    "allowedFileGlobs": ["**/*.{ts,tsx,js,jsx}", "**/*test*", "**/*spec*"],
+    "testCommandsByRepo": {}
+  },
+  "persistence": {
+    "driver": "postgres",
+    "migrationMode": "auto"
+  },
+  "observability": {
+    "logLevel": "info",
+    "redactSecrets": true,
+    "notifyTelegramOnFailure": false
+  },
+  "skills": [
+    "ticket-context-analysis",
+    "codebase-analysis",
+    "event-specification-generation",
+    "documentation-drafting",
+    "code-change-generation",
+    "pr-summarization",
+    "error-classification-and-retry"
+  ],
+  "connectors": ["linear", "notion", "github", "persistence", "anthropic"]
+}

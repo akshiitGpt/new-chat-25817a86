@@ -1,0 +1,35 @@
+services:
+  linear-to-mixpanel-agent:
+    build: .
+    container_name: linear-to-mixpanel-agent
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./SOUL.md:/app/SOUL.md:ro
+      - ./openclaw.json:/app/openclaw.json:ro
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./state:/app/state
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: linear-to-mixpanel-agent-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: openclaw
+      POSTGRES_USER: openclaw
+      POSTGRES_PASSWORD: openclaw_change_me
+    volumes:
+      - openclaw-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openclaw -d openclaw"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  openclaw-postgres:

@@ -1,0 +1,26 @@
+{
+  "name": "Linear",
+  "purpose": "Discover completed tickets and gather issue context for analytics instrumentation decisions.",
+  "auth": "LINEAR_API_TOKEN",
+  "reads": [
+    "issues",
+    "workflow states",
+    "titles",
+    "descriptions",
+    "comments",
+    "labels",
+    "attachments",
+    "links",
+    "project/team metadata",
+    "completion timestamps",
+    "linked PR references"
+  ],
+  "writes": [],
+  "requirements": [
+    "Query only the configured Linear scope and Done/completed states.",
+    "Handle pagination.",
+    "Normalize ticket IDs and URLs.",
+    "Never modify Linear ticket state or comments.",
+    "Redact tokens from logs and model context."
+  ]
+}

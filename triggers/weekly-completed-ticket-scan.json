@@ -1,0 +1,22 @@
+{
+  "name": "Weekly completed-ticket scan",
+  "type": "schedule",
+  "cron": "0 20 * * 1",
+  "timezone": "Asia/Kolkata",
+  "entrypoint": "bot.js",
+  "action": "Create an agent run, query configured Linear Done/completed tickets, deduplicate by stored Linear ticket ID, derive and document Mixpanel event specs, implement safe GitHub instrumentation changes, open PRs, persist statuses, and finalize run logs.",
+  "requiredSecrets": [
+    "ANTHROPIC_API_KEY",
+    "LINEAR_API_TOKEN",
+    "NOTION_TOKEN",
+    "DATABASE_URL"
+  ],
+  "githubAuthSecrets": [
+    "GITHUB_TOKEN",
+    "GITHUB_APP_ID",
+    "GITHUB_APP_PRIVATE_KEY",
+    "GITHUB_APP_INSTALLATION_ID"
+  ],
+  "overlapPolicy": "singleton-lock",
+  "required": true
+}
